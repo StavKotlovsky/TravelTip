@@ -21,3 +21,11 @@ button {
 .loc-input input {
   padding: 10px;
 }
+
+.flex {
+  display: flex;
+}
+
+.flex.space-around {
+  justify-content: space-around;
+}
