@@ -10,10 +10,14 @@ html {
   padding: 15px;
 }
 
-.btns-container button {
+button {
   border-radius: 14px;
   border: 1px solid rgb(123, 123, 123);
   background-color: rgba(140, 137, 137, 0.546);
   padding: 10px;
   margin: 10px;
+}
+
+.loc-input input {
+  padding: 10px;
 }

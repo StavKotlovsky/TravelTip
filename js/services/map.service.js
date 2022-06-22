@@ -1,12 +1,16 @@
-
+import { storageService } from './storage.service.js'
 
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    getPosition,
 }
 
-var gMap;
+const USER_PLACES = 'userPlaceDB'
+
+var gMap
+var gInfoWindow
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     console.log('InitMap')
@@ -19,8 +23,33 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 zoom: 15
             })
             console.log('Map!', gMap)
+            initMapListener()
         })
 }
+
+function initMapListener() {
+    gMap.addListener("click", (mapsMouseEvent) => {
+        if (gInfoWindow) gInfoWindow.close()
+
+        gInfoWindow = new google.maps.InfoWindow({
+            position: mapsMouseEvent.latLng,
+        })
+        gInfoWindow.setContent(
+            JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+        )
+        gInfoWindow.open(gMap)
+    })
+}
+
+
+// This function provides a Promise API to the callback-based-api of getCurrentPosition
+function getPosition() {
+    console.log('Getting Pos')
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+    })
+}
+
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
@@ -36,11 +65,9 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng)
 }
 
-
-
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyB_chQszcvUfSeiALf9bvdQw44SIPjbHq4&callback=initMap&v'
+    const API_KEY = 'AIzaSyB_chQszcvUfSeiALf9bvdQw44SIPjbHq4'
     var elGoogleApi = document.createElement('script')
     elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
     elGoogleApi.async = true
