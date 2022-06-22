@@ -1,10 +1,10 @@
 import { storageService } from './storage.service.js'
 
 export const mapService = {
-    initMap,
-    addMarker,
-    panTo,
-    getPosition,
+  initMap,
+  addMarker,
+  panTo,
+  getPosition,
 }
 
 const USER_PLACES = 'userPlaceDB'
@@ -13,68 +13,64 @@ var gMap
 var gInfoWindow
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap')
-    return _connectGoogleApi()
-        .then(() => {
-            console.log('google available')
-            gMap = new google.maps.Map(
-                document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
-            console.log('Map!', gMap)
-            initMapListener()
-        })
+  console.log('InitMap')
+  return _connectGoogleApi().then(() => {
+    console.log('google available')
+    gMap = new google.maps.Map(document.querySelector('#map'), {
+      center: { lat, lng },
+      zoom: 15,
+    })
+    console.log('Map!', gMap)
+    initMapListener()
+  })
 }
 
 function initMapListener() {
-    gMap.addListener("click", (mapsMouseEvent) => {
-        if (gInfoWindow) gInfoWindow.close()
+  gMap.addListener('click', (mapsMouseEvent) => {
+    if (gInfoWindow) gInfoWindow.close()
 
-        gInfoWindow = new google.maps.InfoWindow({
-            position: mapsMouseEvent.latLng,
-        })
-        gInfoWindow.setContent(
-            JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-        )
-        gInfoWindow.open(gMap)
+    gInfoWindow = new google.maps.InfoWindow({
+      position: mapsMouseEvent.latLng,
     })
+    gInfoWindow.setContent(
+      JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+    )
+    gInfoWindow.open(gMap)
+  })
 }
-
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
 function getPosition() {
-    console.log('Getting Pos')
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject)
-    })
+  console.log('Getting Pos')
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject)
+  })
 }
 
-
 function addMarker(loc) {
-    var marker = new google.maps.Marker({
-        position: loc,
-        map: gMap,
-        title: 'Hello World!'
-    })
-    return marker
+  var marker = new google.maps.Marker({
+    position: loc,
+    map: gMap,
+    title: 'Hello World!',
+  })
+  return marker
 }
 
 function panTo(lat, lng) {
-    var laLatLng = new google.maps.LatLng(lat, lng)
-    gMap.panTo(laLatLng)
+  var laLatLng = new google.maps.LatLng(lat, lng)
+  gMap.panTo(laLatLng)
 }
 
 function _connectGoogleApi() {
-    if (window.google) return Promise.resolve()
-    const API_KEY = 'AIzaSyB_chQszcvUfSeiALf9bvdQw44SIPjbHq4'
-    var elGoogleApi = document.createElement('script')
-    elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
-    elGoogleApi.async = true
-    document.body.append(elGoogleApi)
+  if (window.google) return Promise.resolve()
+  const API_KEY = 'AIzaSyB_chQszcvUfSeiALf9bvdQw44SIPjbHq4'
+  var elGoogleApi = document.createElement('script')
+  elGoogleApi.src = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`
+  elGoogleApi.async = true
+  document.body.append(elGoogleApi)
 
-    return new Promise((resolve, reject) => {
-        elGoogleApi.onload = resolve
-        elGoogleApi.onerror = () => reject('Google script failed to load')
-    })
+  return new Promise((resolve, reject) => {
+    elGoogleApi.onload = resolve
+    elGoogleApi.onerror = () => reject('Google script failed to load')
+  })
 }
