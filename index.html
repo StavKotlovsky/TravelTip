@@ -1,44 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
-    <title>TravelTip</title>
-</head>
-
-<body>
-    <header class="main-header flex space-around">
-        <h1>TravelTip</h1>
-        <div class="loc-input">
-            <input type="text" placeholder="Enter Location"><button onclick="onPanLoc(this.value)"
-                class="go-btn">Go</button>
-        </div>
-    </header>
-    <p>You are at: <span class="user-pos"></span></p>
-    <p>Locations: <span class="locs"></span></p>
-    <div id="map" style="width: 100%; height: 400px;"></div>
-    <section class="btns-container">
-        <button onclick="onAddMarker()" class="btn-add-marker">Add Marker</button>
-        <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-        <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-        <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
-    </section>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/main.css">
+        <title>TravelTip</title>
+    </head>
 
     <body>
-        <header class="main-header">
+        <header class="main-header flex space-around">
             <h1>TravelTip</h1>
             <div class="loc-input">
                 <input type="text" placeholder="Enter Location"><button onclick="onPanLoc(this.value)"
                     class="go-btn">Go</button>
             </div>
-            <p>You are at: <span class="user-pos"></span></p>
-            <p>Locations: <span class="locs"></span></p>
         </header>
+        <p>You are at: <span class="user-pos"></span></p>
+        <p>Locations: <span class="locs"></span></p>
         <div id="map" style="width: 100%; height: 400px;"></div>
         <section class="btns-container">
-            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+            <button onclick="onAddMarker()" class="btn-add-marker">Add Marker</button>
             <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
             <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
             <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>

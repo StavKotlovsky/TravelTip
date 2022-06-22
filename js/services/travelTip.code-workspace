@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": "..\\.."
+	},
+	{
+		"path": "..\\..\\..\\..\\Dropbox\\CaMay22-Materials\\Day33-ModulesAndClasses-GitCollaborate\\inClass\\WikiTube-ConvertedToModules\\lib"
+	}
+],
+  "settings": {
+    "liveServer.settings.port": 5501,
+    "liveServer.settings.multiRootWorkspaceName": "travelTip"
+  }
+}
